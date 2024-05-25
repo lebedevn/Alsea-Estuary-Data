@@ -6,13 +6,13 @@ import matplotlib.dates as mdates
 import matplotlib.pyplot as plt
 from matplotlib.figure import Figure
 
-# mat Data = downriver, mat Data2 = upriver
+#import downriver data
 #combine dictionaries for down river data
 matDataD1 = sio.loadmat('C:\\Users\\23nik\\Downloads\\mcat_dnriver_7162_Dep1.mat')
 matDataD2 = sio.loadmat('C:\\Users\\23nik\\OneDrive - Oregon State University\\Desktop\\Python\\mcat_dnriver_7162_Dep2.mat')
 matDataD3 = sio.loadmat('C:\\Users\\23nik\\OneDrive - Oregon State University\\Desktop\\Python\\mcat_dnriver_6865_Dep3.mat')
 
-#combine dictionaries for upriver data
+#import upriver data
 matDataU1 = sio.loadmat('C:\\Users\\23nik\\Downloads\\mcat_upriver_6865_Dep1.mat')
 matDataU2 = sio.loadmat('C:\\Users\\23nik\\OneDrive - Oregon State University\\Desktop\\Python\\mcat_upriver_6865_Dep2.mat')
 matDataU3 = sio.loadmat('C:\\Users\\23nik\\OneDrive - Oregon State University\\Desktop\\Python\\mcat_upriver_7162_Dep3.mat')
@@ -28,8 +28,7 @@ matD2DF = pd.DataFrame({dictKey: np.array(dictValue).flatten() for dictKey, dict
 matDataD3Filtered = {dictKey:dictValue for dictKey, dictValue in matDataD3.items() if dictKey[0] != '_'}
 matD3DF = pd.DataFrame({dictKey: np.array(dictValue).flatten() for dictKey, dictValue in matDataD3Filtered.items()})
 
-#matUDF = pd.concat([matD1DF, matD2DF, matD3DF]) doesn't work well since 11 month gap
-matDDF = pd.concat([matD2DF, matD3DF])
+matDDF = pd.concat([matD1DF, matD2DF, matD3DF])
 tmsDownriver = matDDF['DN'] * np.timedelta64(1, 'D') + origin
 
 
@@ -41,8 +40,7 @@ matU2DF = pd.DataFrame({dictKey: np.array(dictValue).flatten() for dictKey, dict
 matDataU3Filtered = {dictKey:dictValue for dictKey, dictValue in matDataU3.items() if dictKey[0] != '_'}
 matU3DF = pd.DataFrame({dictKey: np.array(dictValue).flatten() for dictKey, dictValue in matDataU3Filtered.items()})
 
-#matUDF = pd.concat([matU1DF, matU2DF, matU3DF]) doesn't work well since 11 month gap
-matUDF = pd.concat([matU2DF, matU3DF])
+matUDF = pd.concat([matU1DF, matU2DF, matU3DF]) 
 tmsUpriver = matUDF['DN'] * np.timedelta64(1, 'D') + origin
 
 #plotting subplots
