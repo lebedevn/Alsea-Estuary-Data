@@ -5,13 +5,13 @@ import datetime
 import matplotlib.dates as mdates
 import matplotlib.pyplot as plt
 from matplotlib.figure import Figure
-# mat Data = downriver, mat Data2 = upriver
-#combine dictionaries for down river data
+
+#import down river data
 matDataD1 = sio.loadmat('C:\\Users\\23nik\\Downloads\\mcat_dnriver_7162_Dep1.mat')
 matDataD2 = sio.loadmat('C:\\Users\\23nik\\OneDrive - Oregon State University\\Desktop\\Python\\mcat_dnriver_7162_Dep2.mat')
 matDataD3 = sio.loadmat('C:\\Users\\23nik\\OneDrive - Oregon State University\\Desktop\\Python\\mcat_dnriver_6865_Dep3.mat')
 
-#combine dictionaries for upriver data
+#import upriver data
 matDataU1 = sio.loadmat('C:\\Users\\23nik\\Downloads\\mcat_upriver_6865_Dep1.mat')
 matDataU2 = sio.loadmat('C:\\Users\\23nik\\OneDrive - Oregon State University\\Desktop\\Python\\mcat_upriver_6865_Dep2.mat')
 matDataU3 = sio.loadmat('C:\\Users\\23nik\\OneDrive - Oregon State University\\Desktop\\Python\\mcat_upriver_7162_Dep3.mat')
@@ -28,7 +28,6 @@ matDataD3Filtered = {dictKey:dictValue for dictKey, dictValue in matDataD3.items
 matD3DF = pd.DataFrame({dictKey: np.array(dictValue).flatten() for dictKey, dictValue in matDataD3Filtered.items()})
 
 matDDF = pd.concat([matD1DF, matD2DF, matD3DF])
-#matDDF = pd.concat([matD2DF, matD3DF])
 tmsDownriver = matDDF['DN'] * np.timedelta64(1, 'D') + origin
 
 
@@ -40,13 +39,13 @@ matU2DF = pd.DataFrame({dictKey: np.array(dictValue).flatten() for dictKey, dict
 matDataU3Filtered = {dictKey:dictValue for dictKey, dictValue in matDataU3.items() if dictKey[0] != '_'}
 matU3DF = pd.DataFrame({dictKey: np.array(dictValue).flatten() for dictKey, dictValue in matDataU3Filtered.items()})
 
-#matUDF = pd.concat([matU1DF, matU2DF, matU3DF]) doesn't work well since 11 month gap
-matUDF = pd.concat([matU2DF, matU3DF])
+matUDF = pd.concat([matU1DF, matU2DF, matU3DF])
 tmsUpriver = matUDF['DN'] * np.timedelta64(1, 'D') + origin
 
 #plotting subplots
 fig, (ax,axdiff) = plt.subplots(2,figsize=(14, 8))
 ax.set_title("Temperature Downriver and Upriver vs. Time")
+#add second plot below that shows temperature difference
 axdiff.set_title("Difference Between Temperature at Downriver and Upriver vs. Time")
 plt.setp(ax, ylabel = "Temperature ($^\circ$C)")
 plt.setp(axdiff, ylabel = "Temperature ($^\circ$C)")
