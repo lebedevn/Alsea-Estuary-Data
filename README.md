@@ -30,3 +30,5 @@ of the surface and bottom salinity for the previous and future 24 hours. When 24
 
 After each time series was processed and all data scaled and deemed to be correct, the arrays were combined into one DataFrame that was then exported to CSV format. The summary files were then created by importing the CSV files. 
 
+
+
