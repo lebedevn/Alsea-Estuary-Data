@@ -7,7 +7,8 @@ The code relies on the following Python modules:
   scipy.io - matlab files import
   numpy - math functions and arrays support
   datetime - timestamps support
-  matplotlib - graphin and visualizations
+  plotly - graphing and visualizations
+
 
 The temperature data is extracted and the files for each site are added to contain the full season that the data was taken. The same is done for the salinity data for each site and year.
 
