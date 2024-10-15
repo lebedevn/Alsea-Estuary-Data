@@ -31,5 +31,5 @@ of the surface and bottom salinity for the previous and future 24 hours. When 24
 
 After each time series was processed and all data scaled and deemed to be correct, the arrays were combined into one DataFrame that was then exported to CSV format. The summary files were then created by importing the CSV files. 
 
-
+To filter out tidal variability I used a lowpass butterworth filter with sampling frequency 288 and cutoff frequency 24/33, for both surface and bottom data in upriver 2013-2014. I used this to identify river and ocean temperatures.
 
