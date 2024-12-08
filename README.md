@@ -29,7 +29,11 @@ I used the remainder of the bottom salinity data to scale the surface salinity d
 salinity. I then multiplied this scale factor to every data point for that range in the salinity time series. The second method I used was to take a roving scale factor. This consisted of identifying a singular data point and taking the average of the 99th percentile of the values 
 of the surface and bottom salinity for the previous and future 24 hours. When 24 hours before or after were not available these were marked as NaNs in the calculations. The data point was then multiplied by the ratio of bottom to surface. 
 
+For the minilander site the scaling process was more complex. Due to large fluctuations in the salinity of the minilander data I used an 8 hour window as opposed to a 24 hour window.  I took the max value of both the minilander data and corresponding surface data and used those ratios to scale the minilander data for the majority of the 2012-2013 time series. 
+
 After each time series was processed and all data scaled and deemed to be correct, the arrays were combined into one DataFrame that was then exported to CSV format. The summary files were then created by importing the CSV files. 
 
-To filter out tidal variability I used a lowpass butterworth filter with sampling frequency 288 and cutoff frequency 24/33, for both surface and bottom data in upriver 2013-2014. I used this to identify river and ocean temperatures.
+To filter out tidal variability I used a lowpass butterworth filter with sampling frequency 288 and cutoff frequency 24/33, for both surface and bottom data in upriver 2013-2014. 
+
+Due to a lack of near shore ocean temperature measurements, I calculated my own hypothetical ocean temperature values for both 2012-2013 and 2013-2014 time series. For both the minilander and bottom salinity data I went day by day and selected the largest salinity value of that day, then plotted the corresponding temperature values for those times on the same plot. I then took stonewall bank data which is a  buoy that is northwest of the Alsea Estuary and took daily averages of the ocean temperature and plotted this on the same graph as the supposed nearshore ocean temperature. I also added a plot below that has 2 y-axes, one for bottom pressure and the other for bottom salinity. Using these two data sets I performed a lagged correlation analysis in order to determine how long after the high tide the max salinity occurs. 
 
