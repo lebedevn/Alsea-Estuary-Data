@@ -488,13 +488,22 @@ def coare36vn_zrf_et(u, zu , t, zt, rh, zq, P, ts, sw_dn, lw_dn, lat, lon,jd, zi
         # This thermal roughness length Stanton number is close to COARE 3.0 value
         zoq = np.minimum(0.00016,5.8e-05 / rr ** 0.72)
         # Andreas 1987 for snow/ice
-        ik = np.array(np.where(rr[iice] <= 0.135))
+        if np.size(iice) != 0:
+            ik = np.array(np.where(rr[iice] <= 0.135))
+        else:
+            ik = [False]
         rt[iice[ik]] = rr[iice[ik]] * np.exp(1.25)
         rq[iice[ik]] = rr[iice[ik]] * np.exp(1.61)
-        ik = np.array(np.where(rr[iice] > np.logical_and(0.135,rr[iice]) <= 2.5))
+        if np.size(iice) !=0:
+            ik = np.array(np.where(rr[iice] > np.logical_and(0.135,rr[iice]) <= 2.5))
+        else:
+            ik = [False]
         rt[iice[ik]] = np.multiply(rr[iice[ik]],np.exp(0.149 - 0.55 * np.log(rr[iice[ik]])))
         rq[iice[ik]] = np.multiply(rr[iice[ik]],np.exp(0.351 - 0.628 * np.log(rr[iice[ik]])))
-        ik = np.array(np.where(rr[iice] > np.logical_and(2.5,rr[iice]) <= 1000))
+        if np.size(iice) !=0:
+            ik = np.array(np.where(rr[iice] > np.logical_and(2.5,rr[iice]) <= 1000))
+        else: 
+            ik = [False]
         rt[iice[ik]] = np.multiply(rr[iice[ik]],np.exp(0.317 - 0.565 * np.log(rr[iice[ik]]) - np.multiply(0.183 * np.log(rr[iice[ik]]),np.log(rr[iice[ik]]))))
         rq[iice[ik]] = np.multiply(rr[iice[ik]],np.exp(0.396 - 0.512 * np.log(rr[iice[ik]]) - np.multiply(0.18 * np.log(rr[iice[ik]]),np.log(rr[iice[ik]]))))
         # Dalton number is close to COARE 3.0 value
